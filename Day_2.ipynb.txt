@@ -1,0 +1,576 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f79c8bf4",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "DATA PREPARETION"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "620d8f0f",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandas as pd\n",
+    "data = pd.read_csv('IRIS.csv')\n",
+    "print(data)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "ae751674",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "     sepal_length  sepal_width\n",
+      "0             5.1          3.5\n",
+      "1             4.9          3.0\n",
+      "2             4.7          3.2\n",
+      "3             4.6          3.1\n",
+      "4             5.0          3.6\n",
+      "..            ...          ...\n",
+      "145           6.7          3.0\n",
+      "146           6.3          2.5\n",
+      "147           6.5          3.0\n",
+      "148           6.2          3.4\n",
+      "149           5.9          3.0\n",
+      "\n",
+      "[150 rows x 2 columns]\n"
+     ]
+    }
+   ],
+   "source": [
+    "selected_columns = data[['sepal_length','sepal_width']]\n",
+    "print(selected_columns)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "97dfd999",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "     sepal_length  sepal_width  petal_length  petal_width         species\n",
+      "0             5.1          3.5           1.4          0.2     Iris-setosa\n",
+      "5             5.4          3.9           1.7          0.4     Iris-setosa\n",
+      "10            5.4          3.7           1.5          0.2     Iris-setosa\n",
+      "14            5.8          4.0           1.2          0.2     Iris-setosa\n",
+      "15            5.7          4.4           1.5          0.4     Iris-setosa\n",
+      "..            ...          ...           ...          ...             ...\n",
+      "145           6.7          3.0           5.2          2.3  Iris-virginica\n",
+      "146           6.3          2.5           5.0          1.9  Iris-virginica\n",
+      "147           6.5          3.0           5.2          2.0  Iris-virginica\n",
+      "148           6.2          3.4           5.4          2.3  Iris-virginica\n",
+      "149           5.9          3.0           5.1          1.8  Iris-virginica\n",
+      "\n",
+      "[118 rows x 5 columns]\n"
+     ]
+    }
+   ],
+   "source": [
+    "filtered_data = data[data['sepal_length']>5]\n",
+    "print(filtered_data)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "id": "26e5ddef",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "species\n",
+      "Iris-setosa         73.2\n",
+      "Iris-versicolor    213.0\n",
+      "Iris-virginica     277.6\n",
+      "Name: petal_length, dtype: float64\n"
+     ]
+    }
+   ],
+   "source": [
+    "grouped_data = data.groupby('species')['petal_length'].sum()\n",
+    "print(grouped_data)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "id": "fca5c6c0",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "     sepal_length  sepal_width_x  petal_length_x  petal_width_x  \\\n",
+      "0             5.1            3.5             1.4            0.2   \n",
+      "1             5.1            3.5             1.4            0.2   \n",
+      "2             5.1            3.5             1.4            0.2   \n",
+      "3             5.1            3.5             1.4            0.2   \n",
+      "4             5.1            3.5             1.4            0.2   \n",
+      "..            ...            ...             ...            ...   \n",
+      "895           7.7            3.0             6.1            2.3   \n",
+      "896           7.7            3.0             6.1            2.3   \n",
+      "897           7.7            3.0             6.1            2.3   \n",
+      "898           7.4            2.8             6.1            1.9   \n",
+      "899           7.9            3.8             6.4            2.0   \n",
+      "\n",
+      "          species_x  sepal_width_y  petal_length_y  petal_width_y  \\\n",
+      "0       Iris-setosa            3.5             1.4            0.2   \n",
+      "1       Iris-setosa            3.5             1.4            0.3   \n",
+      "2       Iris-setosa            3.8             1.5            0.3   \n",
+      "3       Iris-setosa            3.7             1.5            0.4   \n",
+      "4       Iris-setosa            3.3             1.7            0.5   \n",
+      "..              ...            ...             ...            ...   \n",
+      "895  Iris-virginica            2.6             6.9            2.3   \n",
+      "896  Iris-virginica            2.8             6.7            2.0   \n",
+      "897  Iris-virginica            3.0             6.1            2.3   \n",
+      "898  Iris-virginica            2.8             6.1            1.9   \n",
+      "899  Iris-virginica            3.8             6.4            2.0   \n",
+      "\n",
+      "          species_y  \n",
+      "0       Iris-setosa  \n",
+      "1       Iris-setosa  \n",
+      "2       Iris-setosa  \n",
+      "3       Iris-setosa  \n",
+      "4       Iris-setosa  \n",
+      "..              ...  \n",
+      "895  Iris-virginica  \n",
+      "896  Iris-virginica  \n",
+      "897  Iris-virginica  \n",
+      "898  Iris-virginica  \n",
+      "899  Iris-virginica  \n",
+      "\n",
+      "[900 rows x 9 columns]\n"
+     ]
+    }
+   ],
+   "source": [
+    "data1 = pd.read_csv('IRIS.csv')\n",
+    "data2 = pd.read_csv('IRIS.csv')\n",
+    "merged_data = pd.merge(data1,data2,on = 'sepal_length')\n",
+    "print(merged_data)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "id": "811e3e3c",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "     sepal_length  sepal_width  petal_length  petal_width         species\n",
+      "0             5.1          3.5           1.4          0.2     Iris-setosa\n",
+      "1             4.9          3.0           1.4          0.2     Iris-setosa\n",
+      "2             4.7          3.2           1.3          0.2     Iris-setosa\n",
+      "3             4.6          3.1           1.5          0.2     Iris-setosa\n",
+      "4             5.0          3.6           1.4          0.2     Iris-setosa\n",
+      "..            ...          ...           ...          ...             ...\n",
+      "145           6.7          3.0           5.2          2.3  Iris-virginica\n",
+      "146           6.3          2.5           5.0          1.9  Iris-virginica\n",
+      "147           6.5          3.0           5.2          2.0  Iris-virginica\n",
+      "148           6.2          3.4           5.4          2.3  Iris-virginica\n",
+      "149           5.9          3.0           5.1          1.8  Iris-virginica\n",
+      "\n",
+      "[150 rows x 5 columns]\n"
+     ]
+    }
+   ],
+   "source": [
+    "data = pd.read_csv('IRIS.csv')\n",
+    "data.fillna(0,inplace = True)\n",
+    "print(data)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "id": "824afe76",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'pandas.core.frame.DataFrame'>\n",
+      "RangeIndex: 150 entries, 0 to 149\n",
+      "Data columns (total 5 columns):\n",
+      " #   Column        Non-Null Count  Dtype  \n",
+      "---  ------        --------------  -----  \n",
+      " 0   sepal_length  150 non-null    float64\n",
+      " 1   sepal_width   150 non-null    float64\n",
+      " 2   petal_length  150 non-null    float64\n",
+      " 3   petal_width   150 non-null    float64\n",
+      " 4   species       150 non-null    object \n",
+      "dtypes: float64(4), object(1)\n",
+      "memory usage: 6.0+ KB\n"
+     ]
+    }
+   ],
+   "source": [
+    "data.info()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "id": "645ae27a",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "     sepal_length  sepal_width  petal_length  petal_width         species  \\\n",
+      "0             5.1          3.5           1.4          0.2     Iris-setosa   \n",
+      "1             4.9          3.0           1.4          0.2     Iris-setosa   \n",
+      "2             4.7          3.2           1.3          0.2     Iris-setosa   \n",
+      "3             4.6          3.1           1.5          0.2     Iris-setosa   \n",
+      "4             5.0          3.6           1.4          0.2     Iris-setosa   \n",
+      "..            ...          ...           ...          ...             ...   \n",
+      "145           6.7          3.0           5.2          2.3  Iris-virginica   \n",
+      "146           6.3          2.5           5.0          1.9  Iris-virginica   \n",
+      "147           6.5          3.0           5.2          2.0  Iris-virginica   \n",
+      "148           6.2          3.4           5.4          2.3  Iris-virginica   \n",
+      "149           5.9          3.0           5.1          1.8  Iris-virginica   \n",
+      "\n",
+      "     processed_column  \n",
+      "0                10.2  \n",
+      "1                 9.8  \n",
+      "2                 9.4  \n",
+      "3                 9.2  \n",
+      "4                10.0  \n",
+      "..                ...  \n",
+      "145              13.4  \n",
+      "146              12.6  \n",
+      "147              13.0  \n",
+      "148              12.4  \n",
+      "149              11.8  \n",
+      "\n",
+      "[150 rows x 6 columns]\n"
+     ]
+    }
+   ],
+   "source": [
+    "def process_value(value):\n",
+    "    processed_value = value*2\n",
+    "    return processed_value\n",
+    "data['processed_column'] = data['sepal_length'].apply(process_value)\n",
+    "print(data)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 33,
+   "id": "8b87e383",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "species      Iris-setosa  Iris-versicolor  Iris-virginica\n",
+      "sepal_width                                              \n",
+      "2.0                  NaN         5.000000             NaN\n",
+      "2.2                  NaN         6.100000        6.000000\n",
+      "2.3             4.500000         5.600000             NaN\n",
+      "2.4                  NaN         5.300000             NaN\n",
+      "2.5                  NaN         5.625000        5.900000\n",
+      "2.6                  NaN         5.666667        6.900000\n",
+      "2.7                  NaN         5.680000        6.075000\n",
+      "2.8                  NaN         6.150000        6.475000\n",
+      "2.9             4.400000         6.085714        6.800000\n",
+      "3.0             4.700000         5.950000        6.716667\n",
+      "3.1             4.820000         6.766667        6.725000\n",
+      "3.2             4.680000         6.433333        6.760000\n",
+      "3.3             5.050000         6.300000        6.566667\n",
+      "3.4             5.033333         6.000000        6.250000\n",
+      "3.5             5.150000              NaN             NaN\n",
+      "3.6             4.800000              NaN        7.200000\n",
+      "3.7             5.266667              NaN             NaN\n",
+      "3.8             5.250000              NaN        7.800000\n",
+      "3.9             5.400000              NaN             NaN\n",
+      "4.0             5.800000              NaN             NaN\n",
+      "4.1             5.200000              NaN             NaN\n",
+      "4.2             5.500000              NaN             NaN\n",
+      "4.4             5.700000              NaN             NaN\n"
+     ]
+    }
+   ],
+   "source": [
+    "pivot_table=pd.pivot_table(data,values=\"sepal_length\",index=\"sepal_width\",columns=\"species\")\n",
+    "print(pivot_table)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 42,
+   "id": "b8ed815e",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "             sepal_length  sepal_width  petal_length  petal_width  \\\n",
+      "date_column                                                         \n",
+      "1970-01-31          876.5        458.1         563.8        179.8   \n",
+      "\n",
+      "             processed_column  \n",
+      "date_column                    \n",
+      "1970-01-31             1753.0  \n"
+     ]
+    }
+   ],
+   "source": [
+    "data['date_column'] = pd.to_datetime(data['sepal_length'])\n",
+    "data.set_index('date_column',inplace=True)\n",
+    "resampled_data = data.resample('M').sum()\n",
+    "print(resampled_data)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "63789116",
+   "metadata": {},
+   "source": [
+    "# Using numpy"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 46,
+   "id": "6cadc71a",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[2 3 4 5 6 7]\n",
+      "27\n",
+      "4.5\n",
+      "7\n",
+      "2\n"
+     ]
+    }
+   ],
+   "source": [
+    "import numpy as np\n",
+    "arr= np.array([2,3,4,5,6,7])\n",
+    "print(arr)\n",
+    "print(np.sum(arr))\n",
+    "print(np.mean(arr))\n",
+    "print(np.max(arr))\n",
+    "print(np.min(arr))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 47,
+   "id": "d6e4ac8a",
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[[2 3 4]\n",
+      " [5 6 7]]\n"
+     ]
+    }
+   ],
+   "source": [
+    "reshaped_arr = arr.reshape(2,3)\n",
+    "print(reshaped_arr)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 50,
+   "id": "6455c9df",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[[0.12246886 0.77297161 0.00444916]\n",
+      " [0.35509169 0.60076087 0.04030067]\n",
+      " [0.13817106 0.44797891 0.4701703 ]]\n"
+     ]
+    }
+   ],
+   "source": [
+    "arr = np.random.random((3,3))\n",
+    "print(arr)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 51,
+   "id": "f4f54eab",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[5 7 9]\n"
+     ]
+    }
+   ],
+   "source": [
+    "arr1 = np.array([1,2,3])\n",
+    "arr2 = np.array([4,5,6])\n",
+    "result = arr1 + arr2\n",
+    "print(result)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 57,
+   "id": "59e3daf7",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[12 15 18]\n",
+      "[ 6 15 24]\n"
+     ]
+    }
+   ],
+   "source": [
+    "arr4 = np.array([[1,2,3],[4,5,6],[7,8,9]])\n",
+    "print(arr)\n",
+    "sum_along_rows = np.sum(arr4,axis=0)\n",
+    "sum_along_column = np.sum(arr4,axis=1)\n",
+    "print(sum_along_rows)\n",
+    "print(sum_along_column)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 64,
+   "id": "97c4d00a",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[6 7]\n",
+      "[2 3 4 5 6 7]\n"
+     ]
+    }
+   ],
+   "source": [
+    "arr= np.array([2,3,4,5,6,7])\n",
+    "mask = arr > 5\n",
+    "filtered_data = arr[mask]\n",
+    "print(filtered_data)\n",
+    "print(arr)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 68,
+   "id": "accbeb33",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[2 3 4 5 6 7]\n",
+      "[0 0 2 1 3 1 1 2]\n"
+     ]
+    }
+   ],
+   "source": [
+    "arr= np.array([2,3,4,4,5,2,4,7,6,7])\n",
+    "unique_arr = np.unique(arr)\n",
+    "element_count = np.bincount(arr)\n",
+    "print(unique_arr)\n",
+    "print(element_count)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 70,
+   "id": "8e05751c",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "slope: 1.0000000000000002\n",
+      "intercept: 4.999999999999999\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = np.array([1,2,3,4,5])\n",
+    "y = np.array([6,7,8,9,10])\n",
+    "coefficients = np.polyfit(x,y,1)\n",
+    "slope,intercept = coefficients\n",
+    "print(\"slope:\",slope)\n",
+    "print(\"intercept:\",intercept)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "23066055",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.9.12"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
